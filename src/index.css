@@ -92,3 +92,7 @@
     scroll-behavior: smooth;
   }
 }
+
+.sedi-map-tiles {
+  filter: grayscale(1) invert(1) brightness(0.78) contrast(1.15);
+}

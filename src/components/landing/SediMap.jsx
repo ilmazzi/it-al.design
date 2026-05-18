@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -47,6 +47,22 @@ function createCustomIcon(active) {
     iconAnchor: [14, 36],
     popupAnchor: [0, -38],
   });
+}
+
+function MapViewUpdater({ center }) {
+  const map = useMap();
+
+  useEffect(() => {
+    map.setView(center, map.getZoom(), { animate: true });
+
+    const sizeTimer = window.setTimeout(() => {
+      map.invalidateSize();
+    }, 150);
+
+    return () => window.clearTimeout(sizeTimer);
+  }, [center, map]);
+
+  return null;
 }
 
 export default function SediMap() {
@@ -129,15 +145,13 @@ export default function SediMap() {
 
         {/* Map */}
         <motion.div
-          key={active}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative h-[400px] lg:h-auto min-h-[350px]"
-          style={{ filter: "grayscale(1) brightness(0.35) contrast(1.2)" }}
+          className="relative h-[400px] lg:h-[520px] min-h-[350px] bg-[#050506]"
         >
           <MapContainer
-            key={active}
             center={activeSede.coords}
             zoom={13}
             scrollWheelZoom={false}
@@ -145,8 +159,10 @@ export default function SediMap() {
             attributionControl={false}
             style={{ width: "100%", height: "100%" }}
           >
+            <MapViewUpdater center={activeSede.coords} />
             <TileLayer
-              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              className="sedi-map-tiles"
+              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
               attribution=""
             />
             {sedi.map((s) => (
@@ -169,7 +185,6 @@ export default function SediMap() {
           {/* Overlay label */}
           <div
             className="absolute bottom-4 right-4 z-[1000] pointer-events-none"
-            style={{ filter: "grayscale(0) brightness(3)" }}
           >
             <div className="bg-[#111113]/80 border border-white/10 px-3 py-2 backdrop-blur-sm">
               <div className="text-[8px] tracking-[0.3em] uppercase text-white/30">
