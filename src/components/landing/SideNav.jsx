@@ -4,6 +4,7 @@ import AccentPicker from "./AccentPicker";
 
 const links = [
   { label: "Fiere", href: "#fiere" },
+  { label: "Metodo di lavoro", href: "#metodo" },
   { label: "Galleria", href: "#galleria" },
   { label: "Contatti", href: "#contatti" },
 ];
@@ -20,17 +21,15 @@ export default function SideNav() {
 
   return (
     <>
-      {/* Top navbar — all screen sizes */}
       <nav
         className={`fixed top-0 left-0 right-0 z-[70] flex items-center justify-between px-8 md:px-14 py-5 transition-all duration-500 ${
           mobileOpen ? "hidden" : ""
         } ${
           scrolled
             ? "bg-[#0f0f10]/95 backdrop-blur-xl border-b border-white/5"
-            : "bg-transparent"
+            : "bg-[#0f0f10]/80 backdrop-blur-md border-b border-white/5"
         }`}
       >
-        {/* Logo */}
         <a href="#home" className="flex items-center">
           <img
             src="https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/a91671a52_LOGO-ITALDESIGN-GREY.png"
@@ -39,25 +38,31 @@ export default function SideNav() {
           />
         </a>
 
-        {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-10">
           {links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-[10px] tracking-[0.3em] uppercase text-white/30 hover:text-primary transition-colors duration-300"
+                className="text-[10px] tracking-[0.3em] uppercase text-white/65 hover:text-primary transition-colors duration-300"
               >
                 {l.label}
               </a>
             </li>
           ))}
+          <li>
+            <a
+              href="#area-riservata"
+              className="text-[10px] tracking-[0.3em] uppercase text-white/65 hover:text-primary transition-colors duration-300"
+            >
+              Area riservata clienti
+            </a>
+          </li>
         </ul>
 
-        {/* Desktop right side */}
         <div className="hidden md:flex items-center gap-6">
           <AccentPicker />
-          <div className="flex items-center gap-3 border-l border-white/8 pl-6">
-            <span className="text-[8px] tracking-[0.3em] uppercase text-white/25">Partner ufficiale</span>
+          <div className="flex items-center gap-3 border-l border-white/10 pl-6">
+            <span className="text-[8px] tracking-[0.25em] uppercase text-white/45">Powered by</span>
             <img
               src="https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/bb51cfc09_octanorm_grey.png"
               alt="Octanorm"
@@ -66,7 +71,6 @@ export default function SideNav() {
           </div>
         </div>
 
-        {/* Mobile hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden flex flex-col gap-1.5 w-5 p-0.5"
@@ -78,7 +82,6 @@ export default function SideNav() {
         </button>
       </nav>
 
-      {/* Mobile fullscreen menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -88,7 +91,6 @@ export default function SideNav() {
             transition={{ duration: 0.2 }}
             className="md:hidden fixed inset-0 z-[60] bg-[#0f0f10] flex flex-col"
           >
-            {/* Header */}
             <div className="flex items-center justify-between px-8 py-5">
               <img
                 src="https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/a91671a52_LOGO-ITALDESIGN-GREY.png"
@@ -106,9 +108,8 @@ export default function SideNav() {
               </button>
             </div>
 
-            {/* Links */}
             <div className="flex flex-col items-center justify-center flex-1 gap-8">
-              {links.map((l, i) => (
+              {[...links, { label: "Area riservata clienti", href: "#area-riservata" }].map((l, i) => (
                 <motion.a
                   key={l.href}
                   href={l.href}
@@ -116,18 +117,16 @@ export default function SideNav() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.07 + 0.1 }}
-                  className="font-display text-5xl font-normal text-white/70 hover:text-primary transition-colors"
+                  className="font-display text-4xl font-normal text-white/70 hover:text-primary transition-colors text-center"
                 >
                   {l.label}
                 </motion.a>
               ))}
-
             </div>
 
-            {/* Footer */}
             <div className="px-8 py-6 border-t border-white/5 flex items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <span className="text-[8px] tracking-[0.25em] uppercase text-white/20">Partner ufficiale</span>
+                <span className="text-[8px] tracking-[0.25em] uppercase text-white/35">Powered by</span>
                 <img
                   src="https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/bb51cfc09_octanorm_grey.png"
                   alt="Octanorm"

@@ -7,7 +7,6 @@ const regions = [
     flagImg: "https://flagcdn.com/it.svg",
     flagAlt: "Italia",
     name: "Italia",
-    sub: "Sede diretta a Milano",
     desc: "Seguiamo stand per tutte le principali fiere italiane: Salone del Mobile, Host, Eicma, Vinitaly e molte altre. Conosciamo ogni padiglione, ogni regolamento.",
     fiere: ["Salone del Mobile", "Host Milano", "Eicma", "Vinitaly", "Fiera di Roma"],
   },
@@ -16,7 +15,6 @@ const regions = [
     flagImg: "https://flagcdn.com/eu.svg",
     flagAlt: "Europa",
     name: "Europa",
-    sub: "Copertura UE completa",
     desc: "Logistica consolidata e network di partner locali per una presenza impeccabile in qualsiasi paese europeo, dalla Germania alla Spagna.",
     fiere: ["Messe Frankfurt", "Fira Barcelona", "Messe München", "Brussels Expo"],
   },
@@ -24,10 +22,9 @@ const regions = [
     num: "03",
     flagImg: "https://flagcdn.com/ng.svg",
     flagAlt: "Nigeria",
-    name: "Nigeria & Nord Africa",
-    sub: "Showroom a Lagos",
-    desc: "Il nostro punto di forza esclusivo. Produzione in loco e team dedicato con esperienza consolidata in Nigeria, Marocco, Egitto e nei principali mercati africani.",
-    fiere: ["Lagos Trade Fair", "Maroc Import Export", "Cairo ICT", "Abuja Expo"],
+    name: "Nigeria & West Africa",
+    desc: "Il nostro punto di forza esclusivo. Produzione in loco e team dedicato con esperienza consolidata in Nigeria e nei principali mercati della West Africa.",
+    fiere: ["Lagos Trade Fair", "Abuja Expo", "Accra Expo", "Dakar Expo"],
   },
 ];
 
@@ -38,7 +35,6 @@ export default function FiereNew() {
     <section id="fiere" className="min-h-screen bg-[#0f0f10] flex flex-col justify-center py-24 px-8 md:px-16">
       <div className="max-w-6xl mx-auto w-full">
 
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -54,7 +50,7 @@ export default function FiereNew() {
             <br />
             <em className="italic text-primary">fiera</em>
             <br />
-            <span className="text-white/80">andate?</span>
+            <span className="text-white/80">partecipi?</span>
           </h2>
           <div className="hidden md:block text-right">
             <p className="text-xs text-white/25 leading-[2] max-w-[220px]">
@@ -64,7 +60,6 @@ export default function FiereNew() {
           </div>
         </motion.div>
 
-        {/* Interactive list */}
         <div className="space-y-0">
           {regions.map((r, i) => (
             <motion.div
@@ -87,13 +82,10 @@ export default function FiereNew() {
                   >
                     {r.name}
                   </span>
-                  <span className="hidden md:block text-[10px] tracking-[0.2em] uppercase text-white/20 ml-auto">
-                    {r.sub}
-                  </span>
                   <motion.span
                     animate={{ rotate: active === i ? 45 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="ml-auto md:ml-4 text-primary text-xl font-light leading-none"
+                    className="ml-auto text-primary text-xl font-light leading-none"
                   >
                     +
                   </motion.span>
@@ -128,22 +120,29 @@ export default function FiereNew() {
           ))}
         </div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-14 flex justify-end"
+          className="mt-14 flex flex-col items-end gap-4"
         >
-          <a href="#contatti"
+          <a
+            href="#preventivo"
             className="group flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] uppercase bg-primary text-[#0f0f10] px-7 py-4 hover:bg-white transition-all duration-300"
           >
-            Raccontaci la tua fiera
+            Richiedi un preventivo
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform">
               <path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
+          <p className="text-xs text-white/25 text-right max-w-[320px] leading-[1.8]">
+            Se al momento non trovi ancora la fiera di tuo interesse,{" "}
+            <a href="mailto:info@it-al.design" className="text-primary/60 hover:text-primary transition-colors">
+              contattaci via mail
+            </a>
+            .
+          </p>
         </motion.div>
       </div>
     </section>

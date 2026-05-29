@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
-const PHONE = "+2349129384546";
+const PHONE = "2349068955108";
 const WA_URL = `https://wa.me/${PHONE}?text=Ciao%2C%20vorrei%20informazioni%20sui%20vostri%20sistemi%20espositivi.`;
 
 export default function WhatsAppBubble() {
@@ -49,7 +49,7 @@ export default function WhatsAppBubble() {
               <div className="bg-[#2a2a2d] rounded-lg rounded-tl-none px-4 py-3 mb-1 max-w-[90%]">
                 <p className="text-[13px] text-white/75 leading-[1.6]">
                   Ciao! 👋 Come possiamo aiutarvi?<br/>
-                  Siamo a Milano e Lagos, pronti per il vostro prossimo stand.
+                  Siamo a Cantù e Lagos, pronti per il vostro prossimo stand.
                 </p>
                 <span className="text-[10px] text-white/25 mt-1.5 block text-right">Ora</span>
               </div>

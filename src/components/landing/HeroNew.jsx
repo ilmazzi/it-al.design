@@ -77,25 +77,24 @@ export default function HeroNew() {
           className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8"
         >
           <p className="text-[13px] font-light text-white/35 leading-[1.95] max-w-[320px]">
-            Sistemi modulari in alluminio certificati Octanorm.
+            Sistemi modulari in alluminio realizzati con il sistema Octanorm.
             <br />
-            Dalla progettazione al montaggio — Milano · Lagos.
+            Dalla progettazione al montaggio — Italia (Cantù) · Nigeria (Lagos).
           </p>
 
           <div className="flex items-center gap-8">
-            {/* Location pills */}
             <div className="hidden sm:flex items-center gap-4">
-              {["🇮🇹 Milano", "🇳🇬 Lagos"].map((loc) => (
+              {["🇮🇹 Italia (Cantù)", "🇳🇬 Nigeria (Lagos)"].map((loc) => (
                 <div key={loc} className="text-[10px] tracking-[0.15em] text-white/30 border border-white/8 px-3 py-1.5">
                   {loc}
                 </div>
               ))}
             </div>
             <a
-              href="#contatti"
+              href="#preventivo"
               className="group flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] uppercase bg-primary text-[#0f0f10] px-7 py-4 hover:bg-white transition-all duration-300"
             >
-              Inizia il progetto
+              Richiedi un preventivo
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform duration-300">
                 <path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

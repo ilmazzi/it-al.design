@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 
 const items = [
   "Sistemi modulari Octanorm",
-  "Milano · Lagos",
+  "Italia (Cantù) · Nigeria (Lagos)",
   "Design & Produzione",
   "Stand fieristici",
   "Showroom & Retail",
-  "Nord Africa",
+  "West Africa",
 ];
 
 export default function ManifestoStrip() {

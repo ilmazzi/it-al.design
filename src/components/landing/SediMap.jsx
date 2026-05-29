@@ -4,7 +4,6 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-// Fix default marker icons for leaflet in vite/react
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
@@ -14,26 +13,29 @@ L.Icon.Default.mergeOptions({
 
 const sedi = [
   {
-    id: "milano",
-    label: "Milano",
+    id: "cantu",
+    label: "Italia (Cantù)",
     flag: "🇮🇹",
-    coords: [45.4654, 9.1859],
-    address: "Zona Rho Fiera, Milano",
-    role: "Design & Produzione",
-    detail: "Hub creativo principale — progettazione 3D, prototipazione e coordinamento europeo.",
+    coords: [45.736, 9.127],
+    address: "Viale Cesare Cattaneo 26, 22063 Cantù (CO)",
+    role: "Italdesign srl",
+    detail: "Design, produzione e coordinamento per fiere in Italia ed Europa.",
+    phone: "+39 031 2269715",
+    phoneHref: "tel:+390312269715",
   },
   {
     id: "lagos",
-    label: "Lagos",
+    label: "Nigeria (Lagos)",
     flag: "🇳🇬",
-    coords: [6.4281, 3.4219],
-    address: "282 Akin Olugbade St, Victoria Island",
-    role: "Nigeria & Nord Africa",
-    detail: "Sede operativa per West Africa — montaggio, logistica e coordinamento fieristico locale.",
+    coords: [6.430, 3.442],
+    address: "115 Ayo Babatunde Crescent, Oniru, Lagos",
+    role: "Italian Aluminium Design Ltd",
+    detail: "Sede operativa per Nigeria e West Africa — montaggio e coordinamento fieristico locale.",
+    phone: "+234 906 895 5108",
+    phoneHref: "tel:+2349068955108",
   },
 ];
 
-// Custom dark SVG marker
 function createCustomIcon(active) {
   const color = active ? "#C8F000" : "#ffffff40";
   const svg = `<svg width="28" height="36" viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,12 +68,11 @@ function MapViewUpdater({ center }) {
 }
 
 export default function SediMap() {
-  const [active, setActive] = useState("milano");
+  const [active, setActive] = useState("cantu");
   const activeSede = sedi.find((s) => s.id === active);
 
   return (
-    <div className="mt-20 mb-0">
-      {/* Section header */}
+    <div className="mb-0">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -84,7 +85,6 @@ export default function SediMap() {
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-0 border border-white/5">
-        {/* Sidebar sede selector */}
         <div className="border-r border-white/5 flex flex-col">
           {sedi.map((s, i) => (
             <motion.button
@@ -98,7 +98,6 @@ export default function SediMap() {
                 active === s.id ? "bg-white/[0.03]" : "hover:bg-white/[0.02]"
               }`}
             >
-              {/* Active indicator */}
               {active === s.id && (
                 <motion.div
                   layoutId="activeBar"
@@ -118,32 +117,21 @@ export default function SediMap() {
               </div>
 
               {active === s.id && (
-                <motion.p
+                <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
-                  className="mt-4 text-[11px] text-white/25 leading-[1.8] pl-10"
+                  className="mt-4 pl-10 space-y-2"
                 >
-                  {s.detail}
-                </motion.p>
+                  <p className="text-[11px] text-white/25 leading-[1.8]">{s.detail}</p>
+                  <a href={s.phoneHref} className="text-[11px] text-primary/60 hover:text-primary transition-colors">
+                    {s.phone}
+                  </a>
+                </motion.div>
               )}
             </motion.button>
           ))}
-
-          {/* Contact CTA at bottom */}
-          <div className="px-8 py-6 mt-auto">
-            <a
-              href={`https://wa.me/+2349129384546?text=Ciao%2C%20vorrei%20visitare%20il%20vostro%20showroom%20a%20${activeSede.label}.`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[9px] tracking-[0.28em] uppercase text-primary/50 hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <span className="w-4 h-px bg-primary/30" />
-              Prenota visita showroom
-            </a>
-          </div>
         </div>
 
-        {/* Map */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -182,10 +170,7 @@ export default function SediMap() {
             ))}
           </MapContainer>
 
-          {/* Overlay label */}
-          <div
-            className="absolute bottom-4 right-4 z-[1000] pointer-events-none"
-          >
+          <div className="absolute bottom-4 right-4 z-[1000] pointer-events-none">
             <div className="bg-[#111113]/80 border border-white/10 px-3 py-2 backdrop-blur-sm">
               <div className="text-[8px] tracking-[0.3em] uppercase text-white/30">
                 {activeSede.flag} {activeSede.label}
