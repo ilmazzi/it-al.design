@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer, useMap, ZoomControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -37,10 +37,11 @@ const sedi = [
 ];
 
 function createCustomIcon(active) {
-  const color = active ? "#C8F000" : "#ffffff40";
+  const color = active ? "#C8F000" : "#111113";
+  const inner = active ? "#111113" : "#ffffff";
   const svg = `<svg width="28" height="36" viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M14 0C6.268 0 0 6.268 0 14c0 9.333 14 22 14 22S28 23.333 28 14C28 6.268 21.732 0 14 0z" fill="${color}"/>
-    <circle cx="14" cy="14" r="5" fill="${active ? "#111113" : "#ffffff20"}"/>
+    <path d="M14 0C6.268 0 0 6.268 0 14c0 9.333 14 22 14 22S28 23.333 28 14C28 6.268 21.732 0 14 0z" fill="${color}" fill-opacity="${active ? 1 : 0.55}"/>
+    <circle cx="14" cy="14" r="5" fill="${inner}" fill-opacity="${active ? 1 : 0.9}"/>
   </svg>`;
   return L.divIcon({
     className: "",
@@ -137,16 +138,21 @@ export default function SediMap() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative h-[400px] lg:h-[520px] min-h-[350px] bg-[#050506]"
+          className="relative h-[400px] lg:h-[520px] min-h-[350px] bg-[#d4d4d4] sedi-map"
         >
           <MapContainer
             center={activeSede.coords}
             zoom={13}
-            scrollWheelZoom={false}
+            minZoom={4}
+            maxZoom={18}
+            scrollWheelZoom
+            doubleClickZoom
+            touchZoom
             zoomControl={false}
             attributionControl={false}
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%", background: "#d4d4d4" }}
           >
+            <ZoomControl position="topright" />
             <MapViewUpdater center={activeSede.coords} />
             <TileLayer
               className="sedi-map-tiles"

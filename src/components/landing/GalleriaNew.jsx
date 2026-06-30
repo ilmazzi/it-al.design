@@ -2,44 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
-
-const projects = [
-  {
-    img: "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/a60c10ca3_generated_57725cc3.png",
-    cat: "Stand fieristico",
-    title: "Pannelli retroilluminati + sospensione aerea",
-    location: "Milano",
-    size: "large", // spans 2 cols + 2 rows
-  },
-  {
-    img: "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/b1ea42b2e_generated_87946b07.png",
-    cat: "Interior · Showroom",
-    title: "Lightbox integrata con arredo",
-    location: "Milano",
-    size: "tall",
-  },
-  {
-    img: "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/b32472d75_generated_d0fb887b.png",
-    cat: "Lagos · Ambasciata d'Italia",
-    title: "Settimana della Cucina Italiana",
-    location: "Lagos",
-    size: "normal",
-  },
-  {
-    img: "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/5ea341273_generated_fa91b721.png",
-    cat: "Stand 6×3",
-    title: "Lightbox retroilluminata + monitor",
-    location: "Milano",
-    size: "normal",
-  },
-  {
-    img: "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/6dabf6e93_generated_c8af2c1e.png",
-    cat: "The Wine Lab",
-    title: "Show cooking — allestimento completo",
-    location: "Lagos",
-    size: "wide",
-  },
-];
+import { useProjects } from "@/hooks/useSanityContent";
 
 function ProjectCard({ project, index, onClick }) {
   const isLarge = project.size === "large";
@@ -95,6 +58,7 @@ function ProjectCard({ project, index, onClick }) {
 }
 
 export default function GalleriaNew() {
+  const { projects } = useProjects({ featuredOnly: true });
   const [selected, setSelected] = useState(null);
 
   return (
@@ -137,7 +101,7 @@ export default function GalleriaNew() {
         {/* Asymmetric grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-0.5 auto-rows-auto">
           {projects.map((p, i) => (
-            <ProjectCard key={i} project={p} index={i} onClick={setSelected} />
+            <ProjectCard key={p.id || i} project={p} index={i} onClick={setSelected} />
           ))}
         </div>
       </div>

@@ -1,13 +1,9 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-
-const IMG1 = "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/61a88d0d0_generated_image.png";
-const IMG2 = "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/1a40b5337_generated_f393e1c6.png";
-
-const letters = ["L","o"," ","s","t","a","n","d"," ","c","h","e"];
-const word2 = ["r","a","c","c","o","n","t","a"];
+import { useSiteSettings } from "@/hooks/useSanityContent";
 
 export default function HeroNew() {
+  const { settings } = useSiteSettings();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
@@ -18,7 +14,7 @@ export default function HeroNew() {
 
       {/* Full bleed image with parallax */}
       <motion.div style={{ y: imgY }} className="absolute inset-0 scale-110">
-        <img src={IMG1} alt="" className="w-full h-full object-cover" />
+        <img src={settings.heroImage} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f10]/30 via-[#0f0f10]/50 to-[#0f0f10]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0f0f10]/60 via-transparent to-[#0f0f10]/20" />
       </motion.div>

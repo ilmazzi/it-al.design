@@ -3,41 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import SideNav from "../components/landing/SideNav";
-
-const projects = [
-  {
-    img: "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/a60c10ca3_generated_57725cc3.png",
-    cat: "Stand fieristico",
-    title: "Pannelli retroilluminati + sospensione aerea",
-    location: "Milano",
-  },
-  {
-    img: "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/b1ea42b2e_generated_87946b07.png",
-    cat: "Interior · Showroom",
-    title: "Lightbox integrata con arredo",
-    location: "Milano",
-  },
-  {
-    img: "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/b32472d75_generated_d0fb887b.png",
-    cat: "Lagos · Ambasciata d'Italia",
-    title: "Settimana della Cucina Italiana",
-    location: "Lagos",
-  },
-  {
-    img: "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/5ea341273_generated_fa91b721.png",
-    cat: "Stand 6×3",
-    title: "Lightbox retroilluminata + monitor",
-    location: "Milano",
-  },
-  {
-    img: "https://media.base44.com/images/public/6a0b2e92614647cccd0d31e3/6dabf6e93_generated_c8af2c1e.png",
-    cat: "The Wine Lab",
-    title: "Show cooking — allestimento completo",
-    location: "Lagos",
-  },
-];
+import { useProjects } from "@/hooks/useSanityContent";
 
 export default function Gallery() {
+  const { projects } = useProjects();
   const [selected, setSelected] = useState(null);
 
   return (
@@ -75,7 +44,7 @@ export default function Gallery() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5">
           {projects.map((p, i) => (
             <motion.div
-              key={i}
+              key={p.id || i}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
