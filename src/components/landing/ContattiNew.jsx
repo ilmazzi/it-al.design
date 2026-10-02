@@ -14,28 +14,57 @@ const areaOptions = [
 export default function ContattiNew() {
   const [form, setForm] = useState({
     nome: "",
+    email: "",
     azienda: "",
     area: "",
     nomeFiera: "",
     data: "",
     dimensioni: "",
     messaggio: "",
+    website: "",
   });
   const [focused, setFocused] = useState(null);
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState("");
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Richiesta preventivo — ${form.azienda || form.nome}`);
-    const body = encodeURIComponent(
-      `Nome: ${form.nome}\nAzienda: ${form.azienda}\nArea: ${form.area}\nNome fiera: ${form.nomeFiera}\nData: ${form.data}\nDimensioni: ${form.dimensioni}\n\n${form.messaggio}`
-    );
-    window.open(`mailto:info@it-al.design?subject=${subject}&body=${body}`, "_blank");
+    setStatus("sending");
+    setError("");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        setStatus("error");
+        setError(data.error || "Invio non riuscito. Riprova tra poco.");
+        return;
+      }
+      setStatus("sent");
+      setForm({
+        nome: "",
+        email: "",
+        azienda: "",
+        area: "",
+        nomeFiera: "",
+        data: "",
+        dimensioni: "",
+        messaggio: "",
+        website: "",
+      });
+    } catch {
+      setStatus("error");
+      setError("Invio non riuscito. Controlla la connessione e riprova.");
+    }
   };
 
   const fieldClass = (name) =>
-    `w-full bg-transparent border-b-2 text-white text-sm font-light py-3 outline-none transition-all duration-300 placeholder:text-white/15 ${
-      focused === name ? "border-primary" : "border-white/8 hover:border-white/15"
+    `w-full bg-transparent border-b-2 text-white text-sm font-light py-3 outline-none transition-all duration-300 placeholder:text-white/45 ${
+      focused === name ? "border-primary" : "border-white/20 hover:border-white/35"
     }`;
 
   return (
@@ -68,7 +97,7 @@ export default function ContattiNew() {
                   <br />
                   <em className="italic text-primary">tua fiera.</em>
                 </h2>
-                <p className="text-sm font-light text-white/30 leading-[2] max-w-[300px]">
+                <p className="text-sm font-light text-white/60 leading-[2] max-w-[300px]">
                   Che abbiate un'idea chiara o stiate ancora esplorando — il nostro team vi guida verso la soluzione giusta.
                 </p>
               </div>
@@ -80,9 +109,9 @@ export default function ContattiNew() {
                   { label: "Instagram", val: "@italian_aluminium_design", href: "https://instagram.com/italian_aluminium_design" },
                 ].map((c) => (
                   <div key={c.label} className="flex items-center gap-5 group">
-                    <span className="text-[9px] tracking-[0.28em] uppercase text-primary/40 w-16 shrink-0">{c.label}</span>
+                    <span className="text-[9px] tracking-[0.28em] uppercase text-primary/70 w-16 shrink-0">{c.label}</span>
                     <a href={c.href} target="_blank" rel="noopener noreferrer"
-                      className="text-xs text-white/25 hover:text-primary transition-colors duration-300">
+                      className="text-xs text-white/55 hover:text-primary transition-colors duration-300">
                       {c.val}
                     </a>
                   </div>
@@ -104,10 +133,11 @@ export default function ContattiNew() {
                   { label: "Azienda", name: "azienda", ph: "Acme Srl" },
                 ].map((f) => (
                   <div key={f.name}>
-                    <label className="block text-[8px] tracking-[0.35em] uppercase text-white/20 mb-3">{f.label}</label>
+                    <label className="block text-[8px] tracking-[0.35em] uppercase text-white/50 mb-3">{f.label}</label>
                     <input
                       name={f.name} value={form[f.name]} onChange={handleChange}
                       placeholder={f.ph}
+                      required={f.name === "nome"}
                       onFocus={() => setFocused(f.name)} onBlur={() => setFocused(null)}
                       className={fieldClass(f.name)}
                     />
@@ -115,21 +145,43 @@ export default function ContattiNew() {
                 ))}
               </div>
 
+              <div className="hidden" aria-hidden="true">
+                <label>
+                  Sito web
+                  <input name="website" value={form.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+                </label>
+              </div>
+
               <div>
-                <label className="block text-[8px] tracking-[0.35em] uppercase text-white/20 mb-3">Area / Paese</label>
+                <label className="block text-[8px] tracking-[0.35em] uppercase text-white/50 mb-3">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="nome@azienda.it"
+                  onFocus={() => setFocused("email")}
+                  onBlur={() => setFocused(null)}
+                  className={fieldClass("email")}
+                />
+              </div>
+
+              <div>
+                <label className="block text-[8px] tracking-[0.35em] uppercase text-white/50 mb-3">Area / Paese</label>
                 <select
                   name="area" value={form.area} onChange={handleChange}
                   onFocus={() => setFocused("area")} onBlur={() => setFocused(null)}
                   className={fieldClass("area") + " cursor-pointer appearance-none bg-transparent"}
                 >
-                  <option value="" className="bg-[#0f0f10] text-white/30">Seleziona...</option>
+                  <option value="" className="bg-[#0f0f10] text-white/70">Seleziona...</option>
                   {areaOptions.map((o) => <option key={o} value={o} className="bg-[#0f0f10]">{o}</option>)}
                 </select>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div>
-                  <label className="block text-[8px] tracking-[0.35em] uppercase text-white/20 mb-3">Nome fiera</label>
+                  <label className="block text-[8px] tracking-[0.35em] uppercase text-white/50 mb-3">Nome fiera</label>
                   <input
                     name="nomeFiera" value={form.nomeFiera} onChange={handleChange}
                     placeholder="es. Salone del Mobile"
@@ -138,7 +190,7 @@ export default function ContattiNew() {
                   />
                 </div>
                 <div>
-                  <label className="block text-[8px] tracking-[0.35em] uppercase text-white/20 mb-3">Data</label>
+                  <label className="block text-[8px] tracking-[0.35em] uppercase text-white/50 mb-3">Data</label>
                   <input
                     name="data" value={form.data} onChange={handleChange}
                     placeholder="es. Aprile 2026"
@@ -149,7 +201,7 @@ export default function ContattiNew() {
               </div>
 
               <div>
-                <label className="block text-[8px] tracking-[0.35em] uppercase text-white/20 mb-3">Dimensioni stand</label>
+                <label className="block text-[8px] tracking-[0.35em] uppercase text-white/50 mb-3">Dimensioni stand</label>
                 <input
                   name="dimensioni" value={form.dimensioni} onChange={handleChange}
                   placeholder="es. 6×3 m, isola 6×6, da definire..."
@@ -159,25 +211,31 @@ export default function ContattiNew() {
               </div>
 
               <div>
-                <label className="block text-[8px] tracking-[0.35em] uppercase text-white/20 mb-3">Messaggio</label>
+                <label className="block text-[8px] tracking-[0.35em] uppercase text-white/50 mb-3">Messaggio</label>
                 <textarea
                   name="messaggio" value={form.messaggio} onChange={handleChange}
                   placeholder="Raccontateci il progetto..."
+                  required
                   rows={4}
                   onFocus={() => setFocused("messaggio")} onBlur={() => setFocused(null)}
                   className={fieldClass("messaggio") + " resize-none border-b-2"}
                 />
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                <span className="text-[9px] tracking-[0.25em] uppercase text-white/15">
-                  Risposta entro 24h
+              <div className="flex items-center justify-between gap-6 pt-4 border-t border-white/5">
+                <span className={`text-[11px] leading-relaxed ${status === "error" ? "text-red-300" : "text-white/55"}`}>
+                  {status === "sent"
+                    ? "Richiesta inviata. Ti rispondiamo entro 24 ore."
+                    : status === "error"
+                      ? error
+                      : "Risposta entro 24h"}
                 </span>
                 <button
                   type="submit"
-                  className="group flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] uppercase bg-primary text-[#0f0f10] px-7 py-4 hover:bg-white transition-all duration-300"
+                  disabled={status === "sending"}
+                  className="group shrink-0 flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] uppercase bg-primary text-[#0f0f10] px-7 py-4 hover:bg-white transition-all duration-300 disabled:opacity-60"
                 >
-                  Invia
+                  {status === "sending" ? "Invio…" : "Invia"}
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform">
                     <path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>

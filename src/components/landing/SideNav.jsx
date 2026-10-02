@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSiteSettings } from "@/hooks/useSanityContent";
 import AccentPicker from "./AccentPicker";
@@ -10,7 +11,12 @@ const links = [
   { label: "Contatti", href: "#contatti" },
 ];
 
+function sectionHref(hash, pathname) {
+  return pathname === "/" ? hash : `/${hash}`;
+}
+
 export default function SideNav() {
+  const { pathname } = useLocation();
   const { settings } = useSiteSettings();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -32,7 +38,7 @@ export default function SideNav() {
             : "bg-[#0f0f10]/80 backdrop-blur-md border-b border-white/5"
         }`}
       >
-        <a href="#home" className="flex items-center">
+        <a href={sectionHref("#home", pathname)} className="flex items-center">
           <img
             src={settings.logo}
             alt="Ital Design"
@@ -44,7 +50,7 @@ export default function SideNav() {
           {links.map((l) => (
             <li key={l.href}>
               <a
-                href={l.href}
+                href={sectionHref(l.href, pathname)}
                 className="text-[10px] tracking-[0.3em] uppercase text-white/65 hover:text-primary transition-colors duration-300"
               >
                 {l.label}
@@ -52,12 +58,12 @@ export default function SideNav() {
             </li>
           ))}
           <li>
-            <a
-              href="#area-riservata"
+            <Link
+              to="/area-riservata"
               className="text-[10px] tracking-[0.3em] uppercase text-white/65 hover:text-primary transition-colors duration-300"
             >
               Area riservata clienti
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -94,11 +100,13 @@ export default function SideNav() {
             className="md:hidden fixed inset-0 z-[60] bg-[#0f0f10] flex flex-col"
           >
             <div className="flex items-center justify-between px-8 py-5">
-              <img
-                src={settings.logo}
-                alt="Ital Design"
-                className="h-12 w-auto"
-              />
+              <a href={sectionHref("#home", pathname)} onClick={() => setMobileOpen(false)}>
+                <img
+                  src={settings.logo}
+                  alt="Ital Design"
+                  className="h-12 w-auto"
+                />
+              </a>
               <button
                 onClick={() => setMobileOpen(false)}
                 className="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors"
@@ -111,10 +119,10 @@ export default function SideNav() {
             </div>
 
             <div className="flex flex-col items-center justify-center flex-1 gap-8">
-              {[...links, { label: "Area riservata clienti", href: "#area-riservata" }].map((l, i) => (
+              {links.map((l, i) => (
                 <motion.a
                   key={l.href}
-                  href={l.href}
+                  href={sectionHref(l.href, pathname)}
                   onClick={() => setMobileOpen(false)}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -124,6 +132,19 @@ export default function SideNav() {
                   {l.label}
                 </motion.a>
               ))}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: links.length * 0.07 + 0.1 }}
+              >
+                <Link
+                  to="/area-riservata"
+                  onClick={() => setMobileOpen(false)}
+                  className="font-display text-4xl font-normal text-white/70 hover:text-primary transition-colors text-center"
+                >
+                  Area riservata clienti
+                </Link>
+              </motion.div>
             </div>
 
             <div className="px-8 py-6 border-t border-white/5 flex items-center justify-between gap-4">

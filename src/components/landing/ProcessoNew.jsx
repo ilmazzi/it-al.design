@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useSiteSettings } from "@/hooks/useSanityContent";
 
 const steps = [
   { num: "01", title: "Briefing", desc: "Ascoltiamo esigenze, analizziamo lo spazio. Obiettivi, budget e tempi definiti insieme." },
@@ -9,7 +8,6 @@ const steps = [
 ];
 
 export default function ProcessoNew() {
-  const { settings } = useSiteSettings();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const bgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
@@ -18,8 +16,9 @@ export default function ProcessoNew() {
     <section ref={ref} id="metodo" className="relative overflow-hidden py-0 bg-[#0f0f10]">
       <div className="relative min-h-[80vh] flex items-center">
         <motion.div style={{ y: bgY }} className="absolute inset-0 scale-110">
-          <img src={settings.processBackground} alt="" className="w-full h-full object-cover opacity-25" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f0f10] via-[#0f0f10]/70 to-[#0f0f10]/40" />
+          <img src="/metodo-bg.jpg" alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[#0f0f10]/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f0f10]/70 via-[#0f0f10]/25 to-transparent" />
         </motion.div>
 
         <div className="relative z-10 w-full max-w-6xl mx-auto px-8 md:px-16 py-24">
@@ -54,13 +53,13 @@ export default function ProcessoNew() {
                 transition={{ duration: 0.6, delay: i * 0.12 }}
                 className="relative group border-t border-white/8 pt-8 pr-8 pb-8 hover:border-primary/40 transition-colors duration-500"
               >
-                <div className="font-display text-[80px] font-normal leading-none text-white/[0.04] group-hover:text-primary/[0.08] transition-colors duration-500 mb-4 select-none">
+                <div className="font-display text-[80px] font-normal leading-none text-white/45 group-hover:text-primary transition-colors duration-500 mb-4 select-none">
                   {s.num}
                 </div>
-                <div className="text-sm font-medium text-white/70 mb-3 group-hover:text-white transition-colors duration-300">
+                <div className="text-sm font-medium text-white/90 mb-3 group-hover:text-white transition-colors duration-300">
                   {s.title}
                 </div>
-                <p className="text-[12px] font-light text-white/30 leading-[1.85]">{s.desc}</p>
+                <p className="text-[12px] font-light text-white/85 leading-[1.85]">{s.desc}</p>
 
                 {i < steps.length - 1 && (
                   <div className="hidden md:block absolute top-0 right-0 w-px h-full bg-white/5" />

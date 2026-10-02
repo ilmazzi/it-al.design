@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MapContainer, Marker, Popup, TileLayer, useMap, ZoomControl } from "react-leaflet";
+import { AttributionControl, MapContainer, Marker, Popup, TileLayer, useMap, ZoomControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -153,11 +153,12 @@ export default function SediMap() {
             style={{ width: "100%", height: "100%", background: "#d4d4d4" }}
           >
             <ZoomControl position="topright" />
+            <AttributionControl position="bottomleft" prefix={false} />
             <MapViewUpdater center={activeSede.coords} />
             <TileLayer
               className="sedi-map-tiles"
-              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-              attribution=""
+              url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             />
             {sedi.map((s) => (
               <Marker
