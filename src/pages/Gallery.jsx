@@ -3,10 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import SideNav from "../components/landing/SideNav";
-import { useProjects } from "@/hooks/useSanityContent";
+import { projects } from "@/data/siteContent";
 
 export default function Gallery() {
-  const { projects } = useProjects();
   const [selected, setSelected] = useState(null);
 
   return (

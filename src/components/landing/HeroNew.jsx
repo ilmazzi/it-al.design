@@ -1,9 +1,8 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useSiteSettings } from "@/hooks/useSanityContent";
+import { siteImages } from "@/data/siteContent";
 
 export default function HeroNew() {
-  const { settings } = useSiteSettings();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
@@ -14,7 +13,7 @@ export default function HeroNew() {
 
       {/* Full bleed image with parallax */}
       <motion.div style={{ y: imgY }} className="absolute inset-0 scale-110">
-        <img src={settings.heroImage} alt="" className="w-full h-full object-cover" />
+        <img src={siteImages.hero} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f10]/30 via-[#0f0f10]/50 to-[#0f0f10]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0f0f10]/60 via-transparent to-[#0f0f10]/20" />
       </motion.div>

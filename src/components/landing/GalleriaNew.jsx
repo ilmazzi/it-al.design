@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useProjects } from "@/hooks/useSanityContent";
+import { projects } from "@/data/siteContent";
 
 function ProjectCard({ project, index, onClick }) {
   const isLarge = project.size === "large";
@@ -58,7 +58,7 @@ function ProjectCard({ project, index, onClick }) {
 }
 
 export default function GalleriaNew() {
-  const { projects } = useProjects({ featuredOnly: true });
+  const featured = projects.filter((project) => project.featured);
   const [selected, setSelected] = useState(null);
 
   return (
@@ -100,7 +100,7 @@ export default function GalleriaNew() {
 
         {/* Asymmetric grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-0.5 auto-rows-auto">
-          {projects.map((p, i) => (
+          {featured.map((p, i) => (
             <ProjectCard key={p.id || i} project={p} index={i} onClick={setSelected} />
           ))}
         </div>
