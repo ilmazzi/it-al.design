@@ -29,6 +29,7 @@ function hexToHsl(hex) {
   return `${Math.round(h * 360)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%`;
 }
 
+const preset = "#0081a6";
 function applyAccent(hex) {
   const hsl = hexToHsl(hex);
   document.documentElement.style.setProperty("--primary", hsl);

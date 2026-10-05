@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSiteSettings } from "@/hooks/useSanityContent";
-import AccentPicker from "./AccentPicker";
 
 const links = [
   { label: "Fiere", href: "#fiere" },
@@ -67,16 +66,13 @@ export default function SideNav() {
           </li>
         </ul>
 
-        <div className="hidden md:flex items-center gap-6">
-          <AccentPicker />
-          <div className="flex items-center gap-3 border-l border-white/10 pl-6">
-            <span className="text-[8px] tracking-[0.25em] uppercase text-white/45">Powered by</span>
-            <img
-              src={settings.octanormLogo}
-              alt="Octanorm"
-              className="h-7 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
-            />
-          </div>
+        <div className="hidden md:flex items-center gap-3">
+          <span className="text-[8px] tracking-[0.25em] uppercase text-white/45">Powered by</span>
+          <img
+            src={settings.octanormLogo}
+            alt="Octanorm"
+            className="h-7 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
+          />
         </div>
 
         <button
@@ -147,16 +143,13 @@ export default function SideNav() {
               </motion.div>
             </div>
 
-            <div className="px-8 py-6 border-t border-white/5 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <span className="text-[8px] tracking-[0.25em] uppercase text-white/35">Powered by</span>
-                <img
-                  src={settings.octanormLogo}
-                  alt="Octanorm"
-                  className="h-5 w-auto opacity-80"
-                />
-              </div>
-              <AccentPicker dropUp />
+            <div className="px-8 py-6 border-t border-white/5 flex items-center gap-4">
+              <span className="text-[8px] tracking-[0.25em] uppercase text-white/35">Powered by</span>
+              <img
+                src={settings.octanormLogo}
+                alt="Octanorm"
+                className="h-5 w-auto opacity-80"
+              />
             </div>
           </motion.div>
         )}

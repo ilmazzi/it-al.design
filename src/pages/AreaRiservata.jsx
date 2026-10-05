@@ -46,7 +46,7 @@ export default function AreaRiservata() {
             <em className="italic text-primary">riservata.</em>
           </h1>
           <p className="text-sm font-light text-white/60 leading-[1.9] mb-12 max-w-[320px]">
-            Accedi per consultare i tuoi progetti. L'accesso sarà attivato a breve.
+            Accedi per consultare i tuoi progetti.
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-8">
@@ -80,7 +80,7 @@ export default function AreaRiservata() {
             </div>
             <button
               type="submit"
-              className="group self-start flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] uppercase bg-primary text-[#0f0f10] px-7 py-4 hover:bg-white transition-all duration-300"
+              className="group self-start flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] uppercase bg-primary text-white px-7 py-4 hover:bg-white hover:text-[#0f0f10] transition-all duration-300"
             >
               Accedi
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform">

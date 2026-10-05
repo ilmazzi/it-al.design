@@ -19,9 +19,9 @@ export default function ManifestoStrip() {
         className="flex gap-0 whitespace-nowrap"
       >
         {[...items, ...items].map((item, i) => (
-          <span key={i} className="inline-flex items-center gap-6 px-8 text-[11px] font-semibold tracking-[0.25em] uppercase text-[#0f0f10]">
+          <span key={i} className="inline-flex items-center gap-6 px-8 text-[11px] font-semibold tracking-[0.25em] uppercase text-white">
             {item}
-            <span className="w-1 h-1 bg-[#0f0f10]/30 rounded-full" />
+            <span className="w-1 h-1 bg-white/30 rounded-full" />
           </span>
         ))}
       </motion.div>

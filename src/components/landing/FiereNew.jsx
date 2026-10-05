@@ -129,7 +129,7 @@ export default function FiereNew() {
         >
           <a
             href="#preventivo"
-            className="group flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] uppercase bg-primary text-[#0f0f10] px-7 py-4 hover:bg-white transition-all duration-300"
+            className="group flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] uppercase bg-primary text-white px-7 py-4 hover:bg-white hover:text-[#0f0f10] transition-all duration-300"
           >
             Richiedi un preventivo
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform">

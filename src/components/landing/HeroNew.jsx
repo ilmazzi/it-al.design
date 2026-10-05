@@ -15,8 +15,7 @@ export default function HeroNew() {
       {/* Full bleed image with parallax */}
       <motion.div style={{ y: imgY }} className="absolute inset-0 scale-110">
         <img src={settings.heroImage} alt="" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f10]/30 via-[#0f0f10]/50 to-[#0f0f10]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f0f10]/60 via-transparent to-[#0f0f10]/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0f0f10] via-[#0f0f10]/70 to-transparent" />
       </motion.div>
 
 
@@ -88,7 +87,7 @@ export default function HeroNew() {
             </div>
             <a
               href="#preventivo"
-              className="group flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] uppercase bg-primary text-[#0f0f10] px-7 py-4 hover:bg-white transition-all duration-300"
+              className="group flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] uppercase bg-primary text-white px-7 py-4 hover:bg-white hover:text-[#0f0f10] transition-all duration-300"
             >
               Richiedi un preventivo
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform duration-300">
