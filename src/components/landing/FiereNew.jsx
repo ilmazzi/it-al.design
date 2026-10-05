@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 
 const regions = [
   {
@@ -7,30 +7,25 @@ const regions = [
     flagImg: "https://flagcdn.com/it.svg",
     flagAlt: "Italia",
     name: "Italia",
-    desc: "Seguiamo stand per tutte le principali fiere italiane: Salone del Mobile, Host, Eicma, Vinitaly e molte altre. Conosciamo ogni padiglione, ogni regolamento.",
-    fiere: ["Salone del Mobile", "Host Milano", "Eicma", "Vinitaly", "Fiera di Roma"],
+    desc: "Il tuo stand Octanorm, in tutta Italia. Dai più forza al tuo brand con uno stand Octanorm professionale, elegante e personalizzato. Ci occupiamo di tutto: progettazione, produzione,trasporto, montaggio e smontaggio in tutte le principali fiere italiane.",
   },
   {
     num: "02",
     flagImg: "https://flagcdn.com/eu.svg",
     flagAlt: "Europa",
     name: "Europa",
-    desc: "Logistica consolidata e network di partner locali per una presenza impeccabile in qualsiasi paese europeo, dalla Germania alla Spagna.",
-    fiere: ["Messe Frankfurt", "Fira Barcelona", "Messe München", "Brussels Expo"],
+    desc: "Logistica consolidata e network di partner locali per una presenza impeccabile in qualsiasi paese europeo.",
   },
   {
     num: "03",
     flagImg: "https://flagcdn.com/ng.svg",
     flagAlt: "Nigeria",
     name: "Nigeria & West Africa",
-    desc: "Il nostro punto di forza esclusivo. Produzione in loco e team dedicato con esperienza consolidata in Nigeria e nei principali mercati della West Africa.",
-    fiere: ["Lagos Trade Fair", "Abuja Expo", "Accra Expo", "Dakar Expo"],
+    desc: "Stand Octanorm in tutta l'Africa occidentale. Progettiamo e realizziamo stand Octanorm in tutta la West Africa, combinando design e progettazione italiana con una struttura produttiva e logistica direttamente sul territorio. Grazie alla nostra base di Lagos, Nigeria, disponiamo di materiali Octanorm già presenti nei nostri magazzini e di personale locale specializzato e formato, farantendo rapidità, controllo dei costi e affidabilità. Ogni progetto viene sviluppato e coordinato dal nostro team di progettazione in Italia, assicurando gli stessi standard qualitativi europei in opgni fiera dell'Africa Occidentale.",
   },
 ];
 
 export default function FiereNew() {
-  const [active, setActive] = useState(null);
-
   return (
     <section id="fiere" className="min-h-screen bg-[#0f0f10] flex flex-col justify-center py-24 px-8 md:px-16">
       <div className="max-w-6xl mx-auto w-full">
@@ -52,11 +47,18 @@ export default function FiereNew() {
             <br />
             <span className="text-white/80">partecipi?</span>
           </h2>
-          <div className="hidden md:block text-right">
-            <p className="text-xs text-white/25 leading-[2] max-w-[220px]">
-              Diteci dove andate.<br />
-              Pensiamo noi a come farvi brillare.
-            </p>
+          <div className="hidden md:block text-right shrink-0 mr-12 lg:mr-24">
+            <div className="flex items-start justify-end gap-4">
+              <span className="w-8 h-px bg-primary mt-3 shrink-0" />
+              <p
+                className="font-display font-normal text-white/80 leading-[1.35] max-w-[340px]"
+                style={{ fontSize: "clamp(18px, 1.8vw, 26px)" }}
+              >
+                Diteci dove andate.
+                <br />
+                <em className="italic text-primary/90">Pensiamo noi a come farvi brillare.</em>
+              </p>
+            </div>
           </div>
         </motion.div>
 
@@ -68,53 +70,26 @@ export default function FiereNew() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
+              className="border-b border-white/6 py-8 px-2"
             >
-              <div
-                className="group border-b border-white/6 cursor-pointer"
-                onClick={() => setActive(active === i ? null : i)}
-              >
-                <div className="flex items-center gap-6 md:gap-10 py-7 hover:bg-white/[0.02] transition-colors duration-300 px-2">
-                  <span className="font-mono text-[10px] tracking-[0.3em] text-white/15 w-8 shrink-0">{r.num}</span>
-                  <img src={r.flagImg} alt={r.flagAlt} className="w-8 h-6 object-cover rounded-[2px] shrink-0 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
-                  <span
-                    className="font-display font-normal text-white/70 group-hover:text-white transition-colors duration-300"
+              <div className="flex items-start gap-6 md:gap-10">
+                <span className="font-mono text-[10px] tracking-[0.3em] text-white/35 w-8 shrink-0 pt-2">{r.num}</span>
+                <img
+                  src={r.flagImg}
+                  alt={r.flagAlt}
+                  className="w-8 h-6 object-cover rounded-[2px] shrink-0 mt-1.5 opacity-90"
+                />
+                <div className="min-w-0 flex-1">
+                  <h3
+                    className="font-display font-normal text-white/85 mb-3"
                     style={{ fontSize: "clamp(22px, 3.5vw, 42px)" }}
                   >
                     {r.name}
-                  </span>
-                  <motion.span
-                    animate={{ rotate: active === i ? 45 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="ml-auto text-primary text-xl font-light leading-none"
-                  >
-                    +
-                  </motion.span>
+                  </h3>
+                  <p className="text-sm font-light text-white/55 leading-[1.9] max-w-[520px]">
+                    {r.desc}
+                  </p>
                 </div>
-
-                <AnimatePresence>
-                  {active === i && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="flex flex-col md:flex-row gap-8 pb-8 pt-2 px-2 ml-14 md:ml-24">
-                        <p className="text-sm font-light text-white/35 leading-[1.9] max-w-[380px]">
-                          {r.desc}
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {r.fiere.map((f) => (
-                            <span key={f} className="text-[10px] tracking-[0.15em] border border-primary/25 text-primary/60 px-3 py-1.5">
-                              {f}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             </motion.div>
           ))}
@@ -136,9 +111,9 @@ export default function FiereNew() {
               <path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
-          <p className="text-xs text-white/25 text-right max-w-[320px] leading-[1.8]">
+          <p className="text-xs text-white/40 text-right max-w-[320px] leading-[1.8]">
             Se al momento non trovi ancora la fiera di tuo interesse,{" "}
-            <a href="mailto:info@it-al.design" className="text-primary/60 hover:text-primary transition-colors">
+            <a href="mailto:info@it-al.design" className="text-primary/80 hover:text-primary transition-colors">
               contattaci via mail
             </a>
             .

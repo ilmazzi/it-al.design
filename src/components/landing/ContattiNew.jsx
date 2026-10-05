@@ -4,8 +4,6 @@ import SediMap from "./SediMap";
 
 const areaOptions = [
   "Italia",
-  "Germania",
-  "Francia",
   "Altri paesi Europa",
   "Nigeria",
   "Altri paesi West Africa",

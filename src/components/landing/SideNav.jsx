@@ -66,14 +66,19 @@ export default function SideNav() {
           </li>
         </ul>
 
-        <div className="hidden md:flex items-center gap-3">
+        <a
+          href="https://www.octanorm.com/it"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:flex items-center gap-3 hover:opacity-100 transition-opacity duration-300"
+        >
           <span className="text-[8px] tracking-[0.25em] uppercase text-white/45">Powered by</span>
           <img
             src={settings.octanormLogo}
             alt="Octanorm"
-            className="h-7 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
+            className="h-7 w-auto opacity-90"
           />
-        </div>
+        </a>
 
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -143,14 +148,20 @@ export default function SideNav() {
               </motion.div>
             </div>
 
-            <div className="px-8 py-6 border-t border-white/5 flex items-center gap-4">
+            <a
+              href="https://www.octanorm.com/it"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-6 border-t border-white/5 flex items-center gap-4"
+              onClick={() => setMobileOpen(false)}
+            >
               <span className="text-[8px] tracking-[0.25em] uppercase text-white/35">Powered by</span>
               <img
                 src={settings.octanormLogo}
                 alt="Octanorm"
                 className="h-5 w-auto opacity-80"
               />
-            </div>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

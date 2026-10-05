@@ -80,7 +80,7 @@ export default function HeroNew() {
           <div className="flex items-center gap-8">
             <div className="hidden sm:flex items-center gap-4">
               {["🇮🇹 Italia (Cantù)", "🇳🇬 Nigeria (Lagos)"].map((loc) => (
-                <div key={loc} className="text-[10px] tracking-[0.15em] text-white/30 border border-white/8 px-3 py-1.5">
+                <div key={loc} className="text-[10px] tracking-[0.15em] text-white/75 border border-white/25 bg-[#0f0f10]/45 px-3 py-1.5">
                   {loc}
                 </div>
               ))}
@@ -104,11 +104,11 @@ export default function HeroNew() {
           transition={{ delay: 2, duration: 1 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <span className="text-[8px] tracking-[0.4em] uppercase text-white/20">Scroll</span>
+          <span className="text-[8px] tracking-[0.4em] uppercase text-white/45">Scroll</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent"
+            className="w-px h-8 bg-gradient-to-b from-white/45 to-transparent"
           />
         </motion.div>
       </motion.div>
