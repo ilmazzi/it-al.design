@@ -1,0 +1,4 @@
+# Cloudflare Pages / Netlify — fallback SPA solo sulle route note.
+# Evita che /assets/* mancanti restituiscano index.html (Safari blocca il CSS).
+/gallery /index.html 200
+/area-riservata /index.html 200

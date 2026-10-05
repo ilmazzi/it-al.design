@@ -16,7 +16,7 @@ const sedi = [
     id: "cantu",
     label: "Italia (Cantù)",
     flag: "🇮🇹",
-    coords: [45.736, 9.127],
+    coords: [45.7321, 9.1663],
     address: "Viale Cesare Cattaneo 26, 22063 Cantù (CO)",
     role: "Italdesign srl",
     detail: "Design, produzione e coordinamento per fiere in Italia ed Europa.",

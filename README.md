@@ -67,7 +67,17 @@ Senza contenuti in Sanity, il sito usa le immagini e i progetti di fallback in `
 
 Pubblica **solo** il contenuto di `dist/` (non la root del repository).
 
+```bash
+npm run build
+# carica l’intera cartella dist/ sul server (index.html + assets/ + immagini)
+```
+
+Importante: ogni deploy deve includere **tutti** i file generati in `dist/assets/`. Se `index.html` punta a un CSS/JS con hash nuovo ma il file non è online, Safari segnala *“non CSS MIME types”* perché il server risponde con HTML al posto del foglio di stile.
+
+Dopo il deploy su Cloudflare, se il sito appare senza stile: **Purge cache** (Caching → Purge Everything) e hard refresh.
+
 Esempi:
 
-- **Netlify / Vercel**: build command `npm run build`, publish directory `dist`
-- **Server statico**: copia `dist/` nella document root e configura fallback su `index.html` per le route SPA (`/gallery`, ecc.)
+- **Cloudflare Pages / Netlify**: build `npm run build`, publish `dist`. In `public/` ci sono già `_redirects` e `_headers` per MIME type e fallback SPA corretto.
+- **Apache**: copia `dist/` (include `.htaccess` da `public/`).
+- **Altri host**: non usare `/* → index.html` globale se possibile; limita il fallback a `/gallery` e `/area-riservata`.
