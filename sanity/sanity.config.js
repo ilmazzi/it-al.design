@@ -2,11 +2,16 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./schemaTypes";
 
+const projectId =
+  process.env.SANITY_STUDIO_PROJECT_ID || "kpqf0ixi";
+const dataset =
+  process.env.SANITY_STUDIO_DATASET || "production";
+
 export default defineConfig({
   name: "default",
-  title: "ITAL DESIGN",
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "",
-  dataset: process.env.SANITY_STUDIO_DATASET || "production",
+  title: "ITAL DESIGN — Admin",
+  projectId,
+  dataset,
   plugins: [
     structureTool({
       structure: (S) =>
@@ -14,17 +19,23 @@ export default defineConfig({
           .title("Contenuti")
           .items([
             S.listItem()
-              .title("Impostazioni sito")
+              .title("Foto & impostazioni")
               .id("siteSettings")
               .child(
                 S.document()
                   .schemaType("siteSettings")
                   .documentId("siteSettings")
+                  .title("Foto & impostazioni")
               ),
             S.divider(),
-            ...S.documentTypeListItems().filter(
-              (item) => item.getId() !== "siteSettings"
-            ),
+            S.listItem()
+              .title("Galleria progetti")
+              .schemaType("project")
+              .child(
+                S.documentTypeList("project")
+                  .title("Galleria progetti")
+                  .defaultOrdering([{ field: "order", direction: "asc" }])
+              ),
           ]),
     }),
   ],

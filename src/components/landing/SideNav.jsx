@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { siteImages } from "@/data/siteContent";
+import { useSiteSettings } from "@/hooks/useSanityContent";
 import AccentPicker from "./AccentPicker";
 
 const links = [
@@ -17,6 +17,7 @@ function sectionHref(hash, pathname) {
 
 export default function SideNav() {
   const { pathname } = useLocation();
+  const { settings } = useSiteSettings();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -39,7 +40,7 @@ export default function SideNav() {
       >
         <a href={sectionHref("#home", pathname)} className="flex items-center">
           <img
-            src={siteImages.logo}
+            src={settings.logo}
             alt="Ital Design"
             className="h-16 w-31"
           />
@@ -71,7 +72,7 @@ export default function SideNav() {
           <div className="flex items-center gap-3 border-l border-white/10 pl-6">
             <span className="text-[8px] tracking-[0.25em] uppercase text-white/45">Powered by</span>
             <img
-              src={siteImages.octanorm}
+              src={settings.octanormLogo}
               alt="Octanorm"
               className="h-7 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
             />
@@ -101,7 +102,7 @@ export default function SideNav() {
             <div className="flex items-center justify-between px-8 py-5">
               <a href={sectionHref("#home", pathname)} onClick={() => setMobileOpen(false)}>
                 <img
-                  src={siteImages.logo}
+                  src={settings.logo}
                   alt="Ital Design"
                   className="h-12 w-auto"
                 />
@@ -150,7 +151,7 @@ export default function SideNav() {
               <div className="flex items-center gap-4">
                 <span className="text-[8px] tracking-[0.25em] uppercase text-white/35">Powered by</span>
                 <img
-                  src={siteImages.octanorm}
+                  src={settings.octanormLogo}
                   alt="Octanorm"
                   className="h-5 w-auto opacity-80"
                 />

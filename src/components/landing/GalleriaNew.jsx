@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { projects } from "@/data/siteContent";
+import { useProjects } from "@/hooks/useSanityContent";
 
 function ProjectCard({ project, index, onClick }) {
   const isLarge = project.size === "large";
@@ -58,7 +58,7 @@ function ProjectCard({ project, index, onClick }) {
 }
 
 export default function GalleriaNew() {
-  const featured = projects.filter((project) => project.featured);
+  const { projects, isLoading } = useProjects({ featuredOnly: true });
   const [selected, setSelected] = useState(null);
 
   return (
@@ -99,11 +99,19 @@ export default function GalleriaNew() {
         </motion.div>
 
         {/* Asymmetric grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-0.5 auto-rows-auto">
-          {featured.map((p, i) => (
-            <ProjectCard key={p.id || i} project={p} index={i} onClick={setSelected} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-0.5">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="bg-[#1a1a1c] animate-pulse min-h-[230px]" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-0.5 auto-rows-auto">
+            {projects.map((p, i) => (
+              <ProjectCard key={p.id || i} project={p} index={i} onClick={setSelected} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Lightbox */}

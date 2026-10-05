@@ -22,6 +22,11 @@ function mergeSettings(data) {
   };
 }
 
+function fallbackProjects(featuredOnly) {
+  if (!featuredOnly) return FALLBACK_PROJECTS;
+  return FALLBACK_PROJECTS.filter((project) => project.featured !== false);
+}
+
 export function useProjects({ featuredOnly = false } = {}) {
   const configured = isSanityConfigured();
   const query = useQuery({
@@ -36,7 +41,7 @@ export function useProjects({ featuredOnly = false } = {}) {
 
   if (!configured) {
     return {
-      projects: FALLBACK_PROJECTS,
+      projects: fallbackProjects(featuredOnly),
       isLoading: false,
       isFromSanity: false,
     };
@@ -50,9 +55,9 @@ export function useProjects({ featuredOnly = false } = {}) {
     };
   }
 
-  if (query.isError || !query.data) {
+  if (query.isError || !query.data?.length) {
     return {
-      projects: [],
+      projects: fallbackProjects(featuredOnly),
       isLoading: false,
       isFromSanity: false,
       error: query.error,
@@ -67,10 +72,11 @@ export function useProjects({ featuredOnly = false } = {}) {
 }
 
 export function useSiteSettings() {
+  const configured = isSanityConfigured();
   const query = useQuery({
     queryKey: ["siteSettings"],
     queryFn: fetchSiteSettings,
-    enabled: isSanityConfigured(),
+    enabled: configured,
     staleTime: CMS_STALE_TIME,
     refetchOnMount: "always",
     refetchOnWindowFocus: true,
@@ -78,7 +84,7 @@ export function useSiteSettings() {
 
   return {
     settings: mergeSettings(query.data),
-    isLoading: query.isLoading && isSanityConfigured(),
+    isLoading: query.isLoading && configured,
     isFromSanity: Boolean(query.data),
   };
 }

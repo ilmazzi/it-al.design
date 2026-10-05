@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import SideNav from "../components/landing/SideNav";
-import { projects } from "@/data/siteContent";
+import { useProjects } from "@/hooks/useSanityContent";
 
 export default function Gallery() {
+  const { projects, isLoading } = useProjects();
   const [selected, setSelected] = useState(null);
 
   return (
@@ -35,44 +36,52 @@ export default function Gallery() {
             </h1>
           </div>
           <span className="hidden md:block text-[9px] tracking-[0.25em] uppercase text-white/15">
-            {projects.length} progetti
+            {isLoading ? "…" : `${projects.length} progetti`}
           </span>
         </div>
 
         {/* Uniform grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5">
-          {projects.map((p, i) => (
-            <motion.div
-              key={p.id || i}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: i * 0.07 }}
-              onClick={() => setSelected(p)}
-              className="relative overflow-hidden cursor-pointer group bg-[#1a1a1c] aspect-[4/3]"
-            >
-              <img
-                src={p.img}
-                alt={p.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f10]/90 via-[#0f0f10]/20 to-transparent" />
-              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500" />
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5">
+            {[0, 1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="bg-[#1a1a1c] animate-pulse aspect-[4/3]" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5">
+            {projects.map((p, i) => (
+              <motion.div
+                key={p.id || i}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: i * 0.07 }}
+                onClick={() => setSelected(p)}
+                className="relative overflow-hidden cursor-pointer group bg-[#1a1a1c] aspect-[4/3]"
+              >
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f10]/90 via-[#0f0f10]/20 to-transparent" />
+                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500" />
 
-              <div className="absolute top-4 left-4 text-[9px] tracking-[0.25em] uppercase text-white/30 group-hover:text-primary/70 transition-colors duration-300">
-                {p.cat}
-              </div>
-              <div className="absolute top-4 right-4 text-[9px] tracking-[0.2em] border border-white/10 text-white/20 px-2 py-1 group-hover:border-primary/30 group-hover:text-primary/50 transition-all duration-300">
-                {p.location}
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <div className="text-[13px] font-light text-white/60 group-hover:text-white transition-colors duration-300">
-                  {p.title}
+                <div className="absolute top-4 left-4 text-[9px] tracking-[0.25em] uppercase text-white/30 group-hover:text-primary/70 transition-colors duration-300">
+                  {p.cat}
                 </div>
-              </div>
-              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-500 ease-out" />
-            </motion.div>
-          ))}
-        </div>
+                <div className="absolute top-4 right-4 text-[9px] tracking-[0.2em] border border-white/10 text-white/20 px-2 py-1 group-hover:border-primary/30 group-hover:text-primary/50 transition-all duration-300">
+                  {p.location}
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                  <div className="text-[13px] font-light text-white/60 group-hover:text-white transition-colors duration-300">
+                    {p.title}
+                  </div>
+                </div>
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-500 ease-out" />
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Lightbox */}

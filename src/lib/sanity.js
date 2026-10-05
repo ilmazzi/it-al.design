@@ -1,7 +1,9 @@
 import imageUrlBuilder from "@sanity/image-url";
 
-export const sanityProjectId = import.meta.env.VITE_SANITY_PROJECT_ID;
-export const sanityDataset = import.meta.env.VITE_SANITY_DATASET || "production";
+export const sanityProjectId =
+  import.meta.env.VITE_SANITY_PROJECT_ID || "kpqf0ixi";
+export const sanityDataset =
+  import.meta.env.VITE_SANITY_DATASET || "production";
 const apiVersion = "2024-01-01";
 
 export const isSanityConfigured = () =>

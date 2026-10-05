@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { siteImages } from "@/data/siteContent";
+import { useSiteSettings } from "@/hooks/useSanityContent";
 
 export default function AreaRiservata() {
+  const { settings } = useSiteSettings();
   const [form, setForm] = useState({ email: "", password: "" });
   const [focused, setFocused] = useState(null);
 
@@ -20,7 +21,7 @@ export default function AreaRiservata() {
     <div className="min-h-screen bg-[#0f0f10] text-white flex flex-col">
       <header className="flex items-center justify-between px-8 md:px-14 py-5 border-b border-white/5">
         <Link to="/" className="flex items-center">
-          <img src={siteImages.logo} alt="Ital Design" className="h-12 w-auto" />
+          <img src={settings.logo} alt="Ital Design" className="h-12 w-auto" />
         </Link>
         <Link
           to="/"

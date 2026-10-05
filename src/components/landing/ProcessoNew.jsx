@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { siteImages } from "@/data/siteContent";
+import { useSiteSettings } from "@/hooks/useSanityContent";
 
 const steps = [
   { num: "01", title: "Briefing", desc: "Ascoltiamo esigenze, analizziamo lo spazio. Obiettivi, budget e tempi definiti insieme." },
@@ -9,6 +9,7 @@ const steps = [
 ];
 
 export default function ProcessoNew() {
+  const { settings } = useSiteSettings();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const bgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
@@ -17,7 +18,7 @@ export default function ProcessoNew() {
     <section ref={ref} id="metodo" className="relative overflow-hidden py-0 bg-[#0f0f10]">
       <div className="relative min-h-[80vh] flex items-center">
         <motion.div style={{ y: bgY }} className="absolute inset-0 scale-110">
-          <img src={siteImages.metodo} alt="" className="w-full h-full object-cover" />
+          <img src={settings.processBackground} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-[#0f0f10]/55" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0f0f10]/70 via-[#0f0f10]/25 to-transparent" />
         </motion.div>

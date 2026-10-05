@@ -25,7 +25,7 @@ export default {
     },
     {
       name: "image",
-      title: "Immagine",
+      title: "Foto progetto",
       type: "image",
       options: { hotspot: true },
       validation: (Rule) => Rule.required(),
@@ -34,6 +34,7 @@ export default {
       name: "gridSize",
       title: "Dimensione in homepage",
       type: "string",
+      description: "Come appare nella griglia della homepage (la pagina Galleria usa sempre celle uguali).",
       options: {
         list: [
           { title: "Normale", value: "normal" },
@@ -56,6 +57,7 @@ export default {
       name: "featured",
       title: "Mostra in homepage",
       type: "boolean",
+      description: "Se attivo, il progetto compare anche nella galleria in homepage.",
       initialValue: true,
     },
   ],
@@ -71,6 +73,14 @@ export default {
       title: "title",
       subtitle: "category",
       media: "image",
+      featured: "featured",
+    },
+    prepare({ title, subtitle, media, featured }) {
+      return {
+        title,
+        subtitle: featured === false ? `${subtitle} · solo galleria` : subtitle,
+        media,
+      };
     },
   },
 };
