@@ -111,13 +111,7 @@ export default function FiereNew() {
               <path d="M1 7H13M7 1L13 7L7 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
-          <p className="text-xs text-white/40 text-right max-w-[320px] leading-[1.8]">
-            Se al momento non trovi ancora la fiera di tuo interesse,{" "}
-            <a href="mailto:info@it-al.design" className="text-primary/80 hover:text-primary transition-colors">
-              contattaci via mail
-            </a>
-            .
-          </p>
+         
         </motion.div>
       </div>
     </section>
