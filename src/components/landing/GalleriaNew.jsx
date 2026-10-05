@@ -89,7 +89,7 @@ export default function GalleriaNew() {
           </div>
           <Link
             to="/gallery"
-            className="group flex items-center gap-2 text-[9px] tracking-[0.25em] uppercase text-white/25 hover:text-primary transition-colors duration-300"
+            className="group flex items-center gap-2 text-[9px] tracking-[0.25em] uppercase text-white/60 hover:text-primary transition-colors duration-300"
           >
             Vedi tutti
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="group-hover:translate-x-1 transition-transform duration-300">
